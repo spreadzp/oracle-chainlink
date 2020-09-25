@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "lend-icon": {
+    "oracle-chainlink": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/lend-icon",
+            "outputPath": "dist/oracle-chainlink",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -53,8 +53,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "9mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lend-icon:build"
+            "browserTarget": "oracle-chainlink:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "lend-icon:build:production"
+              "browserTarget": "oracle-chainlink:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lend-icon:build"
+            "browserTarget": "oracle-chainlink:build"
           }
         },
         "test": {
@@ -117,11 +117,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "lend-icon:serve"
+            "devServerTarget": "oracle-chainlink:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "lend-icon:serve:production"
+              "devServerTarget": "oracle-chainlink:serve:production"
             }
           }
         },
@@ -132,5 +132,5 @@
       }
     }
   },
-  "defaultProject": "lend-icon"
+  "defaultProject": "oracle-chainlink"
 }
