@@ -46,5 +46,4 @@ testem.log
 Thumbs.db
 description
 /src/environments/config.ts
-build/
 package-lock.json

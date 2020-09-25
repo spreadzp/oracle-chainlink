@@ -13,14 +13,14 @@ export class BoardComponent implements OnInit {
   activeAccount = '';
   displayedColumns: string[] = ['nameDerivative', 'expirationPrice', 'currentPrice', 'blockExpiration', 'timeExpiration', 'deposit', 'buy', 'sell'];
   gamersTickets = [
-    // {
-    //   nameDerivative: 'fgj', expirationPrice: 55,
-    //   currentPrice: 45, blockExpiration: 123456, timeExpiration: new Date(), deposit: 50
-    // },
-    // {
-    //   nameDerivative: 'fgj', expirationPrice: 65,
-    //   currentPrice: 45, blockExpiration: 123886, timeExpiration: new Date(), deposit: 56
-    // }
+    {
+      nameDerivative: 'fgj', expirationPrice: 55,
+      currentPrice: 45, blockExpiration: 123456, timeExpiration: new Date(), deposit: 50
+    },
+    {
+      nameDerivative: 'fgj', expirationPrice: 65,
+      currentPrice: 45, blockExpiration: 123886, timeExpiration: new Date(), deposit: 56
+    }
   ];
   constructor(
               private boardService: BoardService, private web3Service: Web3Service) { }

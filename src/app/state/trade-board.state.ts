@@ -5,7 +5,6 @@ import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { PriceInfo } from '../interfaces/priceInfo.interface';
 import { GetNewPrice } from './price.action';
-import { IconProviderService } from '../services/icon-provider.service';
 import { GetContextTradeBoard } from './trade-board.action';
 
 interface TradeBoardModel {
@@ -23,7 +22,7 @@ export class TradeBoardStore {
    * we can inject dependencies as in services or components,
    * but we can't use they for static methods
    */
-  constructor(private readonly iconProviderService: IconProviderService) {}
+  constructor() {}
 
   /**
    * we can give a part of state through clean function,
@@ -47,10 +46,6 @@ export class TradeBoardStore {
   @Action(GetContextTradeBoard)
   loadPrice({ patchState, dispatch }: StateContext<TradeBoardModel>, { newPrice }: GetNewPrice) {
 
-    return this.iconProviderService.getLastPrice()
-      .then(priceInfo => {
-        console.log('@@@@@@@@@@@priceInfo :>> ', priceInfo);
-        patchState({ priceInfo });
-      });
+     
   }
 }
