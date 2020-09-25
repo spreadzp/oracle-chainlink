@@ -1,4 +1,4 @@
-# Icon drivatives
+# Prediction derivatives with oracle from chainlink
 
 to see the project:
 [Icon derivatives](https://spreadzp.github.io/icon-derivatives/)
