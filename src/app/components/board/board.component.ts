@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardService } from 'src/app/services/board.service';
-import { IconProviderService } from 'src/app/services/icon-provider.service';
 import { Web3Service } from 'src/app/services/web3.service';
 
 @Component({
@@ -23,11 +22,11 @@ export class BoardComponent implements OnInit {
     //   currentPrice: 45, blockExpiration: 123886, timeExpiration: new Date(), deposit: 56
     // }
   ];
-  constructor(private iconProviderService: IconProviderService,
+  constructor(
               private boardService: BoardService, private web3Service: Web3Service) { }
 
   ngOnInit() {
-this.iconProviderService.getDerivative().then(res => this.gamersTickets = res);
+// this.iconProviderService.getDerivative().then(res => this.gamersTickets = res);
 this.web3Service.activeAccount.subscribe(account => this.activeAccount = account);
 }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { IconProviderService } from 'src/app/services/icon-provider.service'; 
+// import { IconProviderService } from 'src/app/services/icon-provider.service';
 @Component({
   selector: 'app-manage-derivative',
   templateUrl: './manage-derivative.component.html',
@@ -11,7 +11,7 @@ export class ManageDerivativeComponent implements OnInit {
   nameDerivative = null;
   expirationPrice = null;
   expirationBlock = null;
-  constructor(private iconProviderService: IconProviderService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.nameDerivative = new FormControl();
@@ -30,7 +30,7 @@ export class ManageDerivativeComponent implements OnInit {
   createDerivative() {
     console.log('info :>> ',  this.nameDerivative  ,    this.expirationPrice  ,
     this.expirationBlock  );
-    this.iconProviderService.createDerivative(this.expirationPrice, this.expirationBlock, this.nameDerivative);
+    // this.iconProviderService.createDerivative(this.expirationPrice, this.expirationBlock, this.nameDerivative);
   }
 
 }

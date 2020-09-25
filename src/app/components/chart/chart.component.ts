@@ -13,7 +13,7 @@ declare const TradingView: any;
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements AfterViewInit {
-  symbolPair = 'ICXUSD';
+  symbolPair = 'ETHUSD';
   ngAfterViewInit() {
     new TradingView.widget({
       container_id: 'technical-analysis',

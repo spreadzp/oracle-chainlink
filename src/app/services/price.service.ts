@@ -21,7 +21,7 @@ export class PriceService {
   }
 
  getPrice() {
-  return this.httpClient.get<PriceInfo>('https://api.binance.com/api/v3/ticker/price?symbol=ICXUSDT');
+  return this.httpClient.get<PriceInfo>('https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT');
 
  }
 }

@@ -13,7 +13,7 @@
     "deploy-gp": "ng deploy --base-href=/icon-derivatives/",
     "c-mig": "truffle compile && truffle migrate --reset",
     "gan-cli": "ganache-cli -m 'puzzle crazy electric wide verify popular struggle latin genuine lawsuit thrive neck'",
-    "deploy-github-pages": "ng build --prod --base-href https://spreadzp.github.io/happy-number/ --deploy-url=https://spreadzp.github.io/happy-number/"
+    "deploy-github-pages": "ng build --prod --base-href https://github.com/spreadzp/oracle-chainlink/ --deploy-url=https://github.com/spreadzp/oracle-chainlink/"
 
   },
   "private": true,
@@ -36,7 +36,6 @@
     "ccxt": "^1.32.59",
     "highcharts": "^8.2.0",
     "highcharts-angular": "^2.8.0",
-    "icon-sdk-js": "0.0.18",
     "immer": "^7.0.7",
     "ng2-nouislider": "^1.8.2",
     "nouislider": "^14.6.1",
