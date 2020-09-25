@@ -1,0 +1,18 @@
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.content {
+  height    : 100vh;
+  padding: 25px;
+}
+button {
+  margin: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+.balance, label.mat-form-field-label {
+  text-align: center;
+}

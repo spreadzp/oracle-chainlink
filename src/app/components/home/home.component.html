@@ -1,0 +1,47 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    <app-header [nubmerGame]="lotteryNumber"></app-header>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="side-nav">
+      <button mat-mini-fab color="warn" aria-label="Example icon button with a menu icon" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="logo">
+      </div>
+
+      <div class="title-game">ICON derivatives</div>
+    </div>
+    <div *ngIf="activePage === 'home'" class="layout-page">
+      <app-board></app-board>
+    </div>
+    <div *ngIf="activePage === 'staking'" class="layout-page">
+      <app-staking></app-staking>
+    </div>
+    <div *ngIf="activePage === 'exchange'" class="layout-page">
+      <app-exchange></app-exchange>
+    </div>
+    <div *ngIf="activePage === 'board'" class="layout-page">
+      <app-board></app-board>
+    </div>
+    <div *ngIf="activePage === 'cabinet'" class="layout-page">
+      <app-cabinet></app-cabinet>
+    </div>
+    <div *ngIf="activePage === 'statistic'" class="layout-page">
+      <app-statistic></app-statistic>
+    </div>
+    <div *ngIf="activePage === 'info'" class="layout-page">
+      <app-info></app-info>
+    </div>
+    <div *ngIf="activePage === 'md'" class="layout-page">
+      <app-manage-derivative></app-manage-derivative>
+    </div>
+    <div *ngIf="activePage === 'rules'" class="layout-page">
+      <app-rules></app-rules>
+
+    </div>
+
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,28 @@
+<div class="content">
+  <app-balance></app-balance>
+  <!-- <form class="exch"> -->
+    <div class="amount">
+      <mat-form-field class="example-full-width">
+        <mat-label>Amount for staking</mat-label>
+        <input matInput placeholder="15" name="expirationBlock" [formControl]="expirationBlock"
+          (change)="onAmountChange('expirationBlock', expirationBlock)" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Staking period</mat-label>
+        <input matInput placeholder="15" name="nameDerivative" [formControl]="nameDerivative"
+          (change)="onAmountChange('nameDerivative', nameDerivative)" />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>End amount</mat-label>
+        <input matInput placeholder="15" name="expirationPrice" [formControl]="expirationPrice"
+          (change)="onAmountChange('expirationPrice', expirationPrice)" />
+      </mat-form-field>
+
+    </div>
+    <div class="buttons">
+      <button mat-raised-button class="btn-buy" (click)="createDerivative()">
+        Create derivative
+      </button>
+    </div>
+  <!-- </form> -->
+</div>

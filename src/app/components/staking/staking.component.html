@@ -1,0 +1,30 @@
+<app-earn-chart [stakeData]="stakeData" #myChild *ngIf="showChart"></app-earn-chart>
+
+<div class="calc-wrap">
+  <div class="head-calc">
+    <div class="head-calc__top">
+      <div class="head-calc__summ">
+        <div class="calc-text calc-text_zaym">Current amount</div>
+        <div class="calc-count calc-count_zaym" id="js-output-slider1">
+          &nbsp;{{currentLoan}}
+        </div>
+      </div>
+      <div class="head-calc__summ">
+        <div class="calc-text calc-text_output">
+          Future amount
+        </div>
+        <div class="calc-count calc-count_output calc_ret_sum">
+          &nbsp;{{finishLoan}}
+        </div>
+      </div>
+    </div>
+    <app-slider [sliderMRangeSel]="newRange" (focusout)="refreshChart()" class="head-calc__slider noUi-target noUi-horizontal noUi-rtl">
+    </app-slider>
+
+    <!-- <div class="head-calc__bottom">
+      <div class="head-calc__step">500 &#8381;</div>
+      <div class="head-calc__step">20 000 &#8381;</div>
+    </div> -->
+  </div>
+  <a class="head-calc__btn js-save-sum-button" (click)="makeStaking()">Stake ICX</a>
+</div>

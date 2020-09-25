@@ -1,0 +1,24 @@
+<h2>Investor instructions</h2>
+<div>
+  <section>
+    In SCORE smart contracts, derivatives are issued and recorded. Derivatives
+    have an expiration date and a forecast price on that date and are similar to
+    PUT options. and CALL, the difference is that the investor on the expiration
+    date receives the profit accumulated in the bank of the smart contract not
+    the underlying asset (1000 ICX), if the investor made the correct forecast.
+    For example, investor1 buys ICXD-SP-20-055 (derivative with an expiration
+    date on the last day of September of year 20 with a target price of 0.55)
+    (similar to the CALL option). Today today (Aug 11) ICX has a price of 0.43.
+    To buy such a derivative, investor1 transfers (1000 * 0.55) / 10 / 0.43 =
+    128 ICX. After some time, investor2 sells ICXD-SP-20-055 (similar to a PUT
+    option). The current price for example ICX is 0.36. To sell such a
+    derivative, investor2 transfers (1000 * 0.55) / 10 / 0.36 = 153 ICX. Now the
+    bank in the smart contract is 128 + 153 = 281ICX. Investors continue to buy
+    and sell the derivative. In the expiration date, for example, we have
+    statistics: bank 10500 ICX, PUT investors 40, CALL investors 48, expiry
+    price = current price for the last hour of ICX trading on September 30 0.68.
+    CALL investors made the right prediction and will receive payments. 5%
+    remains for the owner of the smart contract, the rest is distributed among
+    48 investors. 10500 - 5% = 9975/48 = 207 ICX.
+  </section>
+</div>

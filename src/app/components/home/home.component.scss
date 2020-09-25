@@ -1,0 +1,53 @@
+mat-sidenav {
+  background: #FF6600;
+}
+
+.layout-page {
+  padding: 10px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.title-game {
+  color: #FF6600;
+  font-family: "BebasNeueRegular";
+  font-size: 200%;
+  font-style: normal;
+  font-weight: bold;
+}
+.side-nav {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+.mat-drawer-container {
+  height: 100vh;
+}
+@media (max-width: 410px) {
+  .title-game {
+    font-size: 100%;
+  }
+}
+
+app-footer {
+  width: 100%;
+  position:fixed;
+  bottom:0;
+}
+
+.logo {
+  margin-right: 0px;
+  background-image: url(/assets/img/derivatives-icon.png);
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  height: 50px;
+  width: 50px;
+}
+
+.mat-mini-fab.mat-warn {
+  background-color: #ff6600;
+}

@@ -1,0 +1,37 @@
+ul {
+  background: #FF6600;
+}
+mat-drawer-container, mat-drawer {
+
+  background: #FF6600;
+  color: white;
+}
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-events {
+  width: 300px;
+  height: 200px;
+  overflow: auto;
+  border: 1px solid #555;
+}
+.panel-buttons {
+  display: flex;
+  flex-direction: column;
+  button {
+    margin: 10px;
+  }
+}
+button {
+  margin: 10px;
+}
+.btn-disabled {
+
+}
+
+

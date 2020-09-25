@@ -1,0 +1,6 @@
+<nouislider #mrangeslider [connect]="true" [step]="50"
+          [(ngModel)]="sliderMRangeSel" (change)="updateSliderM($event)"
+          [min]="sliderMBounds[0]"
+          [max]="sliderMBounds[1]">
+</nouislider>
+
