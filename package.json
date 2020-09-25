@@ -14,7 +14,6 @@
     "gan-cli": "ganache-cli -m 'puzzle crazy electric wide verify popular struggle latin genuine lawsuit thrive neck'",
     "deploy-github-pages": "ng build --prod --base-href https://github.com/spreadzp/oracle-chainlink/ --deploy-url=https://github.com/spreadzp/oracle-chainlink/",
     "deploy-gp": "ng deploy --base-href=/oracle-chainlink/"
-
   },
   "private": true,
   "dependencies": {
@@ -28,10 +27,6 @@
     "@angular/platform-browser": "~9.1.11",
     "@angular/platform-browser-dynamic": "~9.1.11",
     "@angular/router": "~9.1.11",
-    "@ngxs-labs/immer-adapter": "^3.0.5",
-    "@ngxs/form-plugin": "^3.6.2",
-    "@ngxs/logger-plugin": "^3.6.2",
-    "@ngxs/store": "^3.6.2",
     "@truffle/contract": "^4.0.33",
     "ccxt": "^1.32.59",
     "highcharts": "^8.2.0",

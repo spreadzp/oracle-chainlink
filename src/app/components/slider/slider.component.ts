@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter, Input, AfterViewChecked } from '@angular/core';
 import {DecimalPipe} from '@angular/common';
-import { Select } from '@ngxs/store';
-import { StakeStore } from 'src/app/state/stake.state';
 import { Observable } from 'rxjs';
 import { RangeService } from 'src/app/services/range.service';
 

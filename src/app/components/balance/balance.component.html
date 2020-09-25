@@ -2,8 +2,6 @@
 <p># of block {{lastBlock}}</p>
 <p>blockNumber {{priceInfo?.blockNumber}}</p>
 <p>price {{priceInfo?.price}}</p>
-<p>stream Price {{(currentPrice$ | async)}}</p>
-<p>inProgress: {{inProgress}}</p>
-<p>price from contract {{priceFromContract$ | async }}</p>
+<p>inProgress: {{inProgress}}</p> 
 <button (click)="addPrice()">add new price</button>
 <app-price></app-price>

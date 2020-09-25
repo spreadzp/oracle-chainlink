@@ -1,10 +1,7 @@
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
-import { Select } from '@ngxs/store';
-import { Observable } from 'rxjs';
 import { RangeService } from 'src/app/services/range.service';
 import { ShowPageService } from 'src/app/services/show-page.service';
 import { StakeService } from 'src/app/services/stake.services';
-import { StakeStore } from 'src/app/state/stake.state';
 import { EarnChartComponent } from '../earn-chart/earn-chart.component';
 
 
@@ -14,11 +11,11 @@ import { EarnChartComponent } from '../earn-chart/earn-chart.component';
   styleUrls: ['./staking.component.scss']
 })
 export class StakingComponent implements OnInit, DoCheck {
-  @Select(StakeStore.getStartValue)
-  public startValue$: Observable<number>;
+  // @Select(StakeStore.getStartValue)
+  // public startValue$: Observable<number>;
 
-  @Select(StakeStore.getFinishValue)
-  public finishValue$: Observable<number>;
+  // @Select(StakeStore.getFinishValue)
+  // public finishValue$: Observable<number>;
 
   @ViewChild('myChild') private myChild: EarnChartComponent;
   time = '';
@@ -56,7 +53,7 @@ export class StakingComponent implements OnInit, DoCheck {
     this.time = hours + ' : ' + (minutes % 60);
     // this.currentLoan = this.newRange[1];
     // this.finishLoan = Math.floor(this.currentLoan * 1.001);
-    console.log('startValue$ :>> ', this.startValue$);
+    // console.log('startValue$ :>> ', this.startValue$);
     this.rangeService.currentRange.subscribe((range) => {
       // this.showChart = false;
       this.newRange = range;

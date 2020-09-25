@@ -42,13 +42,6 @@ import { ShowPageService } from './services/show-page.service';
 import { CabinetComponent } from './components/cabinet/cabinet.component';
 import { ManageDerivativeComponent } from './components/manage-derivative/manage-derivative.component';
 import { HelloComponent } from './components/hello/hello.component';
-import { LoginComponent } from './components/login/login.component';
-import { NgxsModule } from '@ngxs/store';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { NgxsFormPluginModule } from '@ngxs/form-plugin';
-import { LoginState } from './components/login/login.state';
-import { PriceStore } from './state/price.state';
-import { TradeBoardStore } from './state/trade-board.state';
 import { ChartComponent } from './components/chart/chart.component';
 import { StakingComponent } from './components/staking/staking.component';
 import { SliderComponent } from './components/slider/slider.component';
@@ -77,7 +70,6 @@ import { BoardService } from './services/board.service';
     CabinetComponent,
     ManageDerivativeComponent,
     HelloComponent,
-    LoginComponent,
     ChartComponent,
     StakingComponent,
     SliderComponent,
@@ -101,9 +93,6 @@ import { BoardService } from './services/board.service';
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
-    NgxsModule.forRoot([LoginState, PriceStore, TradeBoardStore]),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsFormPluginModule.forRoot(),
     HighchartsChartModule,
     NouisliderModule
   ],

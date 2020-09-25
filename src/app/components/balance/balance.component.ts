@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 // import { IconProviderService } from 'src/app/services/icon-provider.service';
 import { PriceInfo } from 'src/app/interfaces/priceInfo.interface';
-import { PriceStore } from 'src/app/state/price.state';
-import { Select, Store, Actions, ofActionDispatched, ofActionCompleted } from '@ngxs/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { GetNewPrice } from 'src/app/state/price.action';
-import { TradeBoardStore } from 'src/app/state/trade-board.state';
-import { GetContextTradeBoard } from 'src/app/state/trade-board.action';
 
 @Component({
   selector: 'app-balance',
@@ -15,11 +10,7 @@ import { GetContextTradeBoard } from 'src/app/state/trade-board.action';
   styleUrls: ['./balance.component.scss']
 })
 export class BalanceComponent implements OnInit {
-  @Select(PriceStore.getLastPrice)
-  public currentPrice$: Observable<number>;
 
-  @Select(TradeBoardStore.getLastPrice)
-  public priceFromContract$: Observable<number>;
 
   private unsubscriber$ = new Subject<void>();
   public inProgress = true;
@@ -30,7 +21,7 @@ export class BalanceComponent implements OnInit {
   result = null;
   lastBlock = null;
   priceInfo = {} as PriceInfo;
-  constructor(  private store: Store, private actions$: Actions) { }
+  constructor(   ) { }
 
   ngOnInit(): void {
     // this.iconProviderService.getWallet()
@@ -44,14 +35,13 @@ export class BalanceComponent implements OnInit {
     //     this.priceInfo.blockNumber = this.convertHashToInt(newPrice.blockNumber);
     //   });
     // this.subscribeToActionDispatched();
-    this.store.dispatch(new GetNewPrice(null));
-    this.store.dispatch(new GetContextTradeBoard(null));
+
   }
 
   addPrice() {
     // this.iconProviderService.setNewPriceAndBlock();
-    console.log('currentPrice$ :>> ', this.currentPrice$);
-    console.log('store :>> ', this.store);
+
+
   }
 
   convertHashToInt(hashValue: string) {
