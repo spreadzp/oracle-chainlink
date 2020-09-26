@@ -1,4 +1,4 @@
-pragma solidity ^0.6.7;
+pragma solidity >=0.4.21 <0.7.0;
 
 interface AggregatorV3Interface {
 
@@ -111,7 +111,7 @@ contract Derivative {
 
     function setExpirationPrice(int256 price, bytes32 hashDerivative) public onlyOwner {
       InfoDerivative memory currentDerivative = poolDerivatives[hashDerivative];
-      if (numberDurationExpiration > countOfPrices) {
+      //if (numberDurationExpiration > countOfPrices) {
            // if(block.number >= currentDerivative.startExpirationBlock ||
          // block.number <= currentDerivative.endExpirationBlock) {
           poolDerivatives[hashDerivative].pricesExpiration[countOfPrices] = price;
@@ -119,7 +119,7 @@ contract Derivative {
           poolDerivatives[hashDerivative].averagePrice = countAvgPrice(currentDerivative.pricesExpiration);
 
       // }
-      }
+     // }
 
     }
 
@@ -154,15 +154,39 @@ contract Board is PriceConsumerV3, Derivative {
   event AddedExpirationPrice(int256 price, bytes32 hashDerivative);
   event CreatedDerivative(bytes32 hashDerivative);
   event BoughtPrice(bytes32 hashDerivative, uint256 amount, uint256 predictionPrice, address investor);
+  uint256 numberActiveFutures = 0;
+  bytes32[] public hashActiveFutures = new bytes32[](50);
+
   function createNewDerivative(uint256 startExpirationBlockNumber) public onlyOwner {
     bytes32 hash = createDerivative(startExpirationBlockNumber);
     activeFutures[hash] = true;
+    hashActiveFutures[numberActiveFutures] = hash;
+    numberActiveFutures = numberActiveFutures + 1;
     emit CreatedDerivative(hash);
   }
 
   function expirateDerivative(bytes32 hashDerivative) public onlyOwner {
     closeExpiration(hashDerivative);
     activeFutures[hashDerivative] = false;
+    hashActiveFutures = updateActiveFutures(hashDerivative);
+  }
+
+  function getActiveDerivatives() public view returns(bytes32[] memory) {
+      return hashActiveFutures;
+  }
+
+  function updateActiveFutures(bytes32 hashDerivative) internal returns( bytes32[] memory){
+      uint256 length = hashActiveFutures.length;
+      uint256 indCurrentDerivative = 0;
+      bytes32[] memory currentActiveDerivative  = new bytes32[](length - 1);
+      for(uint256 ind = 0; ind < length; ind++ ) {
+          if(hashActiveFutures[ind] != hashDerivative) {
+              currentActiveDerivative[indCurrentDerivative] = hashActiveFutures[ind];
+              indCurrentDerivative = indCurrentDerivative + 1;
+          }
+      }
+      delete hashActiveFutures;
+      return currentActiveDerivative;
   }
 
   function addExpirationPrice(bytes32 hashDerivative) public onlyOwner {

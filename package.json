@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "node patch.js",
-    "c-mig": "truffle compile && truffle migrate --reset",
+    "c-mig": "rm -rf build/contracts && truffle compile && truffle migrate --reset",
     "gan-cli": "ganache-cli -m 'puzzle crazy electric wide verify popular struggle latin genuine lawsuit thrive neck'",
     "deploy-github-pages": "ng build --prod --base-href https://github.com/spreadzp/oracle-chainlink/ --deploy-url=https://github.com/spreadzp/oracle-chainlink/",
     "deploy-gp": "ng deploy --base-href=/oracle-chainlink/"

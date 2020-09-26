@@ -41,7 +41,7 @@ import { ExchangeComponent } from './components/exchange/exchange.component';
 import { ShowPageService } from './services/show-page.service';
 import { CabinetComponent } from './components/cabinet/cabinet.component';
 import { ManageDerivativeComponent } from './components/manage-derivative/manage-derivative.component';
-import { HelloComponent } from './components/hello/hello.component';
+
 import { ChartComponent } from './components/chart/chart.component';
 import { StakingComponent } from './components/staking/staking.component';
 import { SliderComponent } from './components/slider/slider.component';
@@ -69,7 +69,6 @@ import { BoardService } from './services/board.service';
     ExchangeComponent,
     CabinetComponent,
     ManageDerivativeComponent,
-    HelloComponent,
     ChartComponent,
     StakingComponent,
     SliderComponent,

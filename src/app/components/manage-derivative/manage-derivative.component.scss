@@ -16,3 +16,9 @@ mat-form-field {
 .balance, label.mat-form-field-label {
   text-align: center;
 }
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}

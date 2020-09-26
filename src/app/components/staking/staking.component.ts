@@ -92,7 +92,6 @@ export class StakingComponent implements OnInit, DoCheck {
 
   refreshChart() {
     this.showChart = false;
-    console.log('bliur @@@object :>> ');
     this.showChart = true;
   }
 }

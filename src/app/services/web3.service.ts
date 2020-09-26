@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 declare let require: any;
 const Web3 = require('web3');
 const contract = require('@truffle/contract');
@@ -15,6 +15,7 @@ export class Web3Service {
   public accountsObservable = new Subject<string[]>();
   public activeAccount = new Subject<string>();
 
+  public blockObservable = new Subject<number>();
   constructor() {
     window.addEventListener('load', (event) => {
       this.bootstrapWeb3();
@@ -43,6 +44,7 @@ export class Web3Service {
     setInterval(() => {
       if (this.web3) {
         this.refreshAccounts();
+        this.getLatestBlock();
       }
     }, 1000);
   }
@@ -69,7 +71,6 @@ export class Web3Service {
   private async refreshAccounts() {
     const accs = await this.web3.eth.getAccounts();
     this.activeAccount.next(this.web3.currentProvider.selectedAddress);
-    console.log('Refreshing accounts');
 
     // Get the initial account balance so it can be displayed.
     if (accs.length === 0) {
@@ -91,5 +92,13 @@ export class Web3Service {
     }
 
     this.ready = true;
+  }
+
+  getLatestBlock() {
+     this.web3.eth.getBlockNumber()
+    .then(lastBlock => {
+      this.blockObservable.next(lastBlock);
+    });
+
   }
 }

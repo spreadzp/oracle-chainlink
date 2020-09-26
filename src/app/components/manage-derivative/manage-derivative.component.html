@@ -1,27 +1,32 @@
-<div class="content">
+<div class="content example-container mat-elevation-z8">
+  <app-chart></app-chart>
   <app-balance></app-balance>
+  <app-price></app-price>
   <!-- <form class="exch"> -->
     <div class="amount">
+      <div>Hash: {{activeDerivative.hash}}</div>
+      <div>Block Expiration: {{activeDerivative.startBlockExpiration}}</div>
+      <div>Duration Expiration: {{activeDerivative.durationExpiration}}</div>
       <mat-form-field class="example-full-width">
-        <mat-label>Amount for staking</mat-label>
-        <input matInput placeholder="15" name="expirationBlock" [formControl]="expirationBlock"
-          (change)="onAmountChange('expirationBlock', expirationBlock)" />
+        <mat-label>Amount of derivatives</mat-label>
+        <input matInput placeholder="15" name="amount" [formControl]="amount"
+          (change)="onAmountChange('amount', amount)" />
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <mat-label>Staking period</mat-label>
+        <mat-label>Expiration Price</mat-label>
         <input matInput placeholder="15" name="nameDerivative" [formControl]="nameDerivative"
           (change)="onAmountChange('nameDerivative', nameDerivative)" />
       </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>End amount</mat-label>
+      <!-- <mat-form-field class="example-full-width"> -->
+        <!-- <mat-label>End amount</mat-label>
         <input matInput placeholder="15" name="expirationPrice" [formControl]="expirationPrice"
           (change)="onAmountChange('expirationPrice', expirationPrice)" />
-      </mat-form-field>
+      </mat-form-field> -->
 
     </div>
     <div class="buttons">
-      <button mat-raised-button class="btn-buy" (click)="createDerivative()">
-        Create derivative
+      <button mat-raised-button class="btn-buy" (click)="buyDerivative()">
+        Buy derivative
       </button>
     </div>
   <!-- </form> -->
