@@ -1,24 +1,23 @@
 <h2>Investor instructions</h2>
 <div>
   <section>
-    In SCORE smart contracts, derivatives are issued and recorded. Derivatives
-    have an expiration date and a forecast price on that date and are similar to
-    PUT options. and CALL, the difference is that the investor on the expiration
-    date receives the profit accumulated in the bank of the smart contract not
-    the underlying asset (1000 ICX), if the investor made the correct forecast.
-    For example, investor1 buys ICXD-SP-20-055 (derivative with an expiration
-    date on the last day of September of year 20 with a target price of 0.55)
-    (similar to the CALL option). Today today (Aug 11) ICX has a price of 0.43.
-    To buy such a derivative, investor1 transfers (1000 * 0.55) / 10 / 0.43 =
-    128 ICX. After some time, investor2 sells ICXD-SP-20-055 (similar to a PUT
-    option). The current price for example ICX is 0.36. To sell such a
-    derivative, investor2 transfers (1000 * 0.55) / 10 / 0.36 = 153 ICX. Now the
-    bank in the smart contract is 128 + 153 = 281ICX. Investors continue to buy
-    and sell the derivative. In the expiration date, for example, we have
-    statistics: bank 10500 ICX, PUT investors 40, CALL investors 48, expiry
-    price = current price for the last hour of ICX trading on September 30 0.68.
-    CALL investors made the right prediction and will receive payments. 5%
-    remains for the owner of the smart contract, the rest is distributed among
-    48 investors. 10500 - 5% = 9975/48 = 207 ICX.
+    When investors open a position long or short, they bet on the fact that the price will rise or fall in the future.
+    Experts, analysts, traders and others predict the future price. But no one is responsible for the inaccuracy of the
+    forecast with their money, only the investors who opened the position. This project allows investors to make money
+    on the accuracy of the forecast for the price of the underlying asset during the derivative expiration period. The
+    owner of the smart contract issues a derivative with the following parameters: the classification of the underlying
+    asset, the price of 1 derivative, the block number of the Ethereum blockchain of the start of expiration, the
+    duration of the expiration when the expiration price will be calculated. During the expiration period, purchases of
+    derivatives will be stopped, prices are recorded from the Chainlink Oracle to the smart contract and the average
+    price is calculated as the expiration price. <p>After the <b>block > expiration block + duration</b> occurs, a calculation is
+    made with the investors who made the price prediction closest to the obtained expiration price.</p> 5% of the total
+    amount of the bank is transferred to the owner of the contract, 95% of the bank is divided among the rest of the
+    winners. The 10 prices that are closest to the expiry price are determined. The average size of the prizeAvg for
+    payments is determined. <p> Each winner receives:
+     <b>prizeInvestor = prizeAvg - ABS ((priceInvestor - priceExpiration) /
+    priceExpiration)%</b>.</p> <p>The investor who most closely predicted the price receives <b>prizeWinnerInvestor = bank -
+    (prizeInvestor2 + ... prizeInvestor10)</b>.</p> Each investor takes a prize by calling a method from a smart contract. After
+    the prizes have been awarded, the derivative is closed and the owner creates a new derivative for this underlying
+    asset.
   </section>
 </div>
