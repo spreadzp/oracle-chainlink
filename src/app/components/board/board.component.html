@@ -2,7 +2,7 @@
 <br />
 
 <div class="example-container mat-elevation-z8">
-  <app-chart></app-chart>
+
   <br />
 
   <mat-table *ngIf="showTable" #table [class.isMobile]="isMobile" [dataSource]="hashActiveDerivatives" class="mat-elevation-z8">
@@ -11,6 +11,13 @@
       <mat-cell *matCellDef="let ticket">
         <span class="mobile-label">Hash:</span>
         {{ ticket.hash }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="lastBlock">
+      <mat-header-cell *matHeaderCellDef> Last Block </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <span class="mobile-label">Last Block</span>
+        {{ lastBlock }}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="blockExpiration">
@@ -27,44 +34,57 @@
         {{ ticket.durationExpiration }}
       </mat-cell>
     </ng-container>
-    <!-- <ng-container matColumnDef="expirationPrice">
-      <mat-header-cell *matHeaderCellDef> Expiration price </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <span class="mobile-label">Expiration price</span>
-        {{ ticket.expirationPrice }}
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="currentPrice">
-      <mat-header-cell *matHeaderCellDef> Current price </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <span class="mobile-label">Current price</span>
-        {{ ticket.currentPrice }}
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="deposit">
-      <mat-header-cell *matHeaderCellDef> Deposit </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <span class="mobile-label">Deposit</span>
-        {{ ticket.deposit }}
-      </mat-cell>
-    </ng-container> -->
     <ng-container matColumnDef="buy">
       <mat-header-cell *matHeaderCellDef> Buy </mat-header-cell>
       <mat-cell *matCellDef="let ticket">
-        <button mat-raised-button color="primary" (click)="buyDerivative(ticket)">Long-{{ ticket.expirationPrice }}</button>
+        <button mat-raised-button color="primary" (click)="buyDerivative(ticket)">Buy</button>
       </mat-cell>
 
     </ng-container>
-    <!-- <ng-container matColumnDef="sell">
-      <mat-header-cell *matHeaderCellDef> Sell </mat-header-cell>
+    <ng-container matColumnDef="boardInvestors">
+      <mat-header-cell *matHeaderCellDef> Board Investors </mat-header-cell>
       <mat-cell *matCellDef="let ticket">
-        <button mat-raised-button color="primary" (click)="sellDerivative(ticket)">Short-{{ ticket.expirationPrice }}</button>
+        <button mat-raised-button color="primary" (click)="showInvestments(ticket)">investors</button>
       </mat-cell>
 
-    </ng-container> -->
+    </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
-  <!-- <div *ngFor="let ticket of gamersTickets">{{ticket.addressGamer}} : {{ticket.numberTicket}}</div> -->
+
+
+
+  <mat-table *ngIf="!showTable" #table [class.isMobile]="isMobile" [dataSource]="investments" class="mat-elevation-z8">
+    <ng-container matColumnDef="investor">
+      <mat-header-cell *matHeaderCellDef> Investor Address </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <span class="mobile-label">Investor Address:</span>
+        {{ ticket.investor }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef> Count of derivatives </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <span class="mobile-label">Count of derivatives</span>
+        {{ ticket.amount }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="predictionPrice">
+      <mat-header-cell *matHeaderCellDef> Prediction price </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <span class="mobile-label">Prediction price</span>
+        {{ ticket.predictionPrice }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="boardDerivatives">
+      <mat-header-cell *matHeaderCellDef> Derivatives </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <button mat-raised-button color="primary" (click)="showBoard()">to board derivatives</button>
+      </mat-cell>
+
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedInvestorsColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedInvestorsColumns"></mat-row>
+  </mat-table>
 </div>

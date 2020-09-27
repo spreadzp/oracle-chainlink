@@ -16,6 +16,13 @@ table {
 .mobile-label {
   display: none;
 }
+.mat-row {
+  padding: 10px;
+}
+
+.mat-cell {
+  padding: 10px;
+}
 
 @media(max-width: 600px) {
   .mobile-label {

@@ -52,17 +52,14 @@ export class BoardService {
       );
     });
   }
-  getBoughtTickets(addressGamer: string) {
-    this.getBoardContract().subscribe((deployed) => {
-      debounceTime(3000);
+  getInvestors(hashDerivative: string) {
+    return this.getBoardContract().subscribe((deployed) => {
+      // debounceTime(3000);
       deployed.then((contract) =>
-        contract.getTickets.call().then((tickets) => {
+        contract.getInvestors(hashDerivative).then((tickets) => {
+          console.log("BoardService -> getBoughtTickets -> tickets", tickets);
+          return tickets;
 
-          tickets.map((item, ind, arr) => {
-            if (item.toLowerCase() === addressGamer.toLowerCase()) {
-              // this.lotoService.addBallToBacket(ind);
-            }
-          });
         })
       );
     });
@@ -76,12 +73,19 @@ export class BoardService {
     this.choiceDerivativeSource.next(derivative);
   }
 
-  setActiveDerivatives(poolHashes: string[]) {
+  setActiveDerivatives(poolHashes: string[], startBlockExpiration: any[], durationExpiration: any[]) {
+    console.log("BoardService -> setActiveDerivatives -> poolHashes", poolHashes);
+    console.log("BoardService -> setActiveDerivatives -> durationExpiration", durationExpiration)
+    console.log("BoardService -> setActiveDerivatives -> startBlockExpiration", startBlockExpiration)
 
     const derivatives: Derivative[] = [];
-    poolHashes.map(hashDerivative => {
-      const der: Derivative = {hash: hashDerivative, startBlockExpiration: 0, durationExpiration: 100};
-      derivatives.push(der);
+    poolHashes.map((hashDerivative, ind) => {
+      const derivative: Derivative = {
+        hash: hashDerivative,
+        startBlockExpiration: startBlockExpiration[ind].words[0],
+        durationExpiration: durationExpiration[ind].words[0]
+      };
+      derivatives.push(derivative);
     });
     this.hashesActiveFuturesSource.next(derivatives);
   }
@@ -91,7 +95,7 @@ export class BoardService {
       .artifactsToContract(boardArtifacts)
       .then(async (BoardAbstraction) => {
         // return BoardAbstraction.deployed();
-        return BoardAbstraction.at('0x3304A034E2317b78a7d15b27FF1a864C980f550d');
+        return BoardAbstraction.at('0x4794CBC3433Ba8Ee4A013cbCAc11d38cd3ddA631');
       });
   }
 }

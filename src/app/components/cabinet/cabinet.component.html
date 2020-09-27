@@ -1,87 +1,15 @@
 <mat-card-title>Owner's cabinet</mat-card-title>
 <br />
-<div class="example-container mat-elevation-z8">
-  <mat-table *ngIf="showTable" #table [class.isMobile]="isMobile" [dataSource]="gamersTickets" class="mat-elevation-z8">
-    <ng-container matColumnDef="nameDerivative">
-      <mat-header-cell *matHeaderCellDef> Derivative </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <span class="mobile-label">Derivative:</span>
-        {{ ticket.nameDerivative }}
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="expirationPrice">
-      <mat-header-cell *matHeaderCellDef> Expiration price </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <span class="mobile-label">Expiration price</span>
-        {{ ticket.expirationPrice }}
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="currentPrice">
-      <mat-header-cell *matHeaderCellDef> Current price </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <span class="mobile-label">Current price</span>
-        {{ ticket.currentPrice }}
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="blockExpiration">
-      <mat-header-cell *matHeaderCellDef> Block expiration </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <span class="mobile-label">Block expiration</span>
-        {{ ticket.blockExpiration }}
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="timeExpiration">
-      <mat-header-cell *matHeaderCellDef> Time expiration </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <span class="mobile-label">Time expiration</span>
-        {{ ticket.timeExpiration }}
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="deposit">
-      <mat-header-cell *matHeaderCellDef> Deposit </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <span class="mobile-label">Deposit</span>
-        {{ ticket.deposit }}
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="buy">
-      <mat-header-cell *matHeaderCellDef> Buy </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <button mat-raised-button color="primary" (click)="buyDerivative(ticket)">Buy</button>
-      </mat-cell>
-
-    </ng-container>
-    <ng-container matColumnDef="sell">
-      <mat-header-cell *matHeaderCellDef> Sell </mat-header-cell>
-      <mat-cell *matCellDef="let ticket">
-        <button mat-raised-button color="primary" (click)="sellDerivative(ticket)">Sell</button>
-      </mat-cell>
-
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-  </mat-table>
-  <!-- <div *ngFor="let ticket of gamersTickets">{{ticket.addressGamer}} : {{ticket.numberTicket}}</div> -->
-</div>
+<app-board></app-board>
 <div class="content">
   <app-balance></app-balance>
   <mat-card-title>{{activeAccount}}</mat-card-title>
   <!-- <form class="exch"> -->
     <div class="amount">
       <mat-form-field class="example-full-width">
-        <mat-label>expiration Block</mat-label>
-        <input matInput placeholder="15" name="expirationBlock" [formControl]="expirationBlock"
+        <mat-label>Number blocks after last block</mat-label>
+        <input matInput placeholder="Enter number of blocks after last block" name="expirationBlock" [formControl]="expirationBlock"
           (change)="onAmountChange('expirationBlock', expirationBlock)" />
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Staking period</mat-label>
-        <input matInput placeholder="15" name="nameDerivative" [formControl]="nameDerivative"
-          (change)="onAmountChange('nameDerivative', nameDerivative)" />
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>End amount</mat-label>
-        <input matInput placeholder="15" name="expirationPrice" [formControl]="expirationPrice"
-          (change)="onAmountChange('expirationPrice', expirationPrice)" />
       </mat-form-field>
 
     </div>

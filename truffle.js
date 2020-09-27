@@ -1,7 +1,7 @@
-require("dotenv").config();
-const HDWalletProvider = require("truffle-hdwallet-provider");
+// require("dotenv").config();
+// const HDWalletProvider = require("truffle-hdwallet-provider");
 
-var mnemonic = process.env.MNENOMIC;
+// var mnemonic = process.env.MNENOMIC;
 
 module.exports = {
     networks: {
@@ -12,11 +12,11 @@ module.exports = {
             }
        },
        ropsten: {
-        provider: () =>
-          new HDWalletProvider(process.env.MNENOMIC, process.env.ROPSTEN
-            ),
-        network_id: "3",
-        skipDryRun: true
+        // provider: () =>
+        //   new HDWalletProvider(process.env.MNENOMIC, process.env.ROPSTEN
+        //     ),
+        // network_id: "3",
+        // skipDryRun: true
         // gasPrice: 1000000000 * 10, // 10 GWEI
 
         // gas: 4700000

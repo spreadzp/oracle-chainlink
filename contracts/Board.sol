@@ -64,7 +64,7 @@ contract PriceConsumerV3 {
 
 contract Derivative {
 
-    uint256 numberDurationExpiration = 10;
+    uint256 numberDurationExpiration = 50;
     uint8 public countOfPrices = 0;
     uint256 latestPrice;
     address public owner;
@@ -96,8 +96,8 @@ contract Derivative {
       bytes32 hashDerivative = keccak256(abi.encode(block.timestamp, block.difficulty));
       InfoDerivative memory newFuture = InfoDerivative( {
           hashIssue: hashDerivative,
-          startExpirationBlock: startExpirationBlockNumber,
-          endExpirationBlock: startExpirationBlockNumber + numberDurationExpiration,
+          startExpirationBlock: block.number + startExpirationBlockNumber,
+          endExpirationBlock: block.number + startExpirationBlockNumber + numberDurationExpiration,
           pricesExpiration: prices,
           averagePrice: 0,
           isActive: true,
@@ -111,28 +111,32 @@ contract Derivative {
 
     function setExpirationPrice(int256 price, bytes32 hashDerivative) public onlyOwner {
       InfoDerivative memory currentDerivative = poolDerivatives[hashDerivative];
-      //if (numberDurationExpiration > countOfPrices) {
-           // if(block.number >= currentDerivative.startExpirationBlock ||
-         // block.number <= currentDerivative.endExpirationBlock) {
-          poolDerivatives[hashDerivative].pricesExpiration[countOfPrices] = price;
-          countOfPrices++;
-          poolDerivatives[hashDerivative].averagePrice = countAvgPrice(currentDerivative.pricesExpiration);
-
-      // }
-     // }
-
+          if(block.number >= currentDerivative.startExpirationBlock ||
+              block.number <= currentDerivative.endExpirationBlock) {
+              poolDerivatives[hashDerivative].pricesExpiration[countOfPrices] = price;
+              countOfPrices++;
+              poolDerivatives[hashDerivative].averagePrice = countAvgPrice(currentDerivative.pricesExpiration);
+          }
     }
 
    function getExpirationPrice(bytes32 hashDerivative) public view returns(int256) {
        return poolDerivatives[hashDerivative].averagePrice;
    }
 
-   function closeExpiration(bytes32 hashDerivative) public onlyOwner {
+   function startExpiration(bytes32 hashDerivative) public onlyOwner {
       // InfoDerivative memory currentDerivative = poolDerivatives[hashDerivative];
       // if(block.number > currentDerivative.startExpirationBlock && currentDerivative.isActive == true) {
           poolDerivatives[hashDerivative].isActive = false;
           poolDerivatives[hashDerivative].isExpirate = true;
       // }
+    }
+
+     function closeExpiration(bytes32 hashDerivative) public onlyOwner {
+      InfoDerivative memory currentDerivative = poolDerivatives[hashDerivative];
+      if (block.number > currentDerivative.startExpirationBlock && currentDerivative.isActive == true) {
+          poolDerivatives[hashDerivative].isActive = false;
+          poolDerivatives[hashDerivative].isExpirate = true;
+      }
     }
 
     function countAvgPrice(int256[] memory prices) private view returns(int256 avgPrice) {
@@ -147,9 +151,17 @@ contract Derivative {
 
 contract Board is PriceConsumerV3, Derivative {
 
-  mapping (bytes32 => bool) public activeFutures;
+  struct Investment {
+      address investorAddress;
+      uint256 amount;
+      uint256 predictionPrice;
+      InfoDerivative  derivative;
+  }
+
+  mapping(bytes32 => bool) public activeFutures;
   mapping(bytes32 => address[]) public derivativeInvestors;
-  mapping(address => InfoDerivative[]) public pullInvestorDerivative;
+  mapping(address => InfoDerivative[]) public investorDerivatives;
+  mapping (bytes32 => Investment[]) investmentsToDerivative;
 
   event AddedExpirationPrice(int256 price, bytes32 hashDerivative);
   event CreatedDerivative(bytes32 hashDerivative);
@@ -171,8 +183,17 @@ contract Board is PriceConsumerV3, Derivative {
     hashActiveFutures = updateActiveFutures(hashDerivative);
   }
 
-  function getActiveDerivatives() public view returns(bytes32[] memory) {
-      return hashActiveFutures;
+  function getActiveDerivatives() public view returns(bytes32[] memory, uint256[] memory, uint256[] memory ) {
+      uint256[] memory startBlocksExpiration = new uint256[](hashActiveFutures.length);
+      uint256[] memory finishBlocksExpiration = new uint256[](hashActiveFutures.length);
+      uint8 indexBlocks = 0;
+      for(uint256 j = 0; j < hashActiveFutures.length; j++) {
+          if(activeFutures[hashActiveFutures[j]] == true) {
+              startBlocksExpiration[indexBlocks] = poolDerivatives[hashActiveFutures[j]].startExpirationBlock;
+              finishBlocksExpiration[indexBlocks] = poolDerivatives[hashActiveFutures[j]].endExpirationBlock;
+          }
+      }
+      return (hashActiveFutures, startBlocksExpiration, finishBlocksExpiration);
   }
 
   function updateActiveFutures(bytes32 hashDerivative) internal returns( bytes32[] memory){
@@ -190,7 +211,7 @@ contract Board is PriceConsumerV3, Derivative {
   }
 
   function addExpirationPrice(bytes32 hashDerivative) public onlyOwner {
-      if(activeFutures[hashDerivative] == true) {
+      if(activeFutures[hashDerivative] == true && poolDerivatives[hashDerivative].isExpirate == true) {
           int price = PriceConsumerV3.getLatestPrice();
            setExpirationPrice(price, hashDerivative);
            emit AddedExpirationPrice(price, hashDerivative);
@@ -200,13 +221,38 @@ contract Board is PriceConsumerV3, Derivative {
 
   function buyDerivative(bytes32 hashDerivative, uint256 amount, uint256 predictionPrice) public  {
       derivativeInvestors[hashDerivative].push(address(msg.sender));
+      Investment memory investment = Investment({investorAddress: address(msg.sender), amount: amount, predictionPrice: predictionPrice, derivative: poolDerivatives[hashDerivative]});
+      investmentsToDerivative[hashDerivative].push(investment);
+      investorDerivatives[address(msg.sender)].push(poolDerivatives[hashDerivative]);
       emit BoughtPrice(hashDerivative, predictionPrice, amount, address(msg.sender));
   }
 
-  function startPaymentAfterExpiration(bytes32 hashDerivative) public onlyOwner {
-    if(activeFutures[hashDerivative] == false) {
+  function getInvestors(bytes32 hashDerivative) public view returns(address[] memory  , uint256[] memory  , uint256[] memory  ) {
+      uint256 length = investmentsToDerivative[hashDerivative].length;
+      address[] memory  investors = new address[](length);
+      uint256[] memory  investorsPrices = new uint256[](length);
+      uint256[] memory  investorsAmounts = new uint256[](length);
+      Investment[] memory investments = investmentsToDerivative[hashDerivative];
+      for(uint256 k = 0; k < length; k++) {
+         investors[k] = investments[k].investorAddress;
+         investorsPrices[k] = investments[k].predictionPrice;
+         investorsAmounts[k] = investments[k].amount;
+      }
+      return (investors,  investorsPrices, investorsAmounts);
+  }
 
+  function startPaymentAfterExpiration(bytes32 hashDerivative) public view onlyOwner {
+    if(activeFutures[hashDerivative] == false) {
+        int256 expirationPrice = poolDerivatives[hashDerivative].averagePrice;
+        uint256 totalInvestors = investmentsToDerivative[hashDerivative].length;
+        uint256 countOfWinner = totalInvestors / 10;
+        Investment[] memory investments = investmentsToDerivative[hashDerivative];
+        // compare prices
     }
+  }
+
+  function rangePrices() internal {
+
   }
 
 }
