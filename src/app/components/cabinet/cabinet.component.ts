@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Derivative } from 'src/app/interfaces/derivative.interface';
 import { BoardService } from 'src/app/services/board.service';
 import { Web3Service } from 'src/app/services/web3.service';
 
@@ -13,11 +14,23 @@ export class CabinetComponent implements OnInit {
   isMobile = false;
   expirationBlock = null;
   activeAccount = '';
+  lastBlock = null;
+  displayedColumns: string[] = [
+    'nameDerivative',
+    'lastBlock',
+    'blockExpiration',
+    'endExpiration',
+    'startExpiration'
+  ];
+  hashActiveDerivatives: Derivative[] = [];
 
   constructor(private boardService: BoardService, private web3Service: Web3Service) { }
 
   ngOnInit() {
-
+    this.web3Service.blockObservable.subscribe(block => this.lastBlock = block);
+    this.boardService.poolActiveDerivatives.subscribe((hashes) => {
+      this.hashActiveDerivatives = hashes;
+    });
     this.web3Service.activeAccount.subscribe(account => this.activeAccount = account);
     this.expirationBlock = new FormControl();
 
@@ -29,7 +42,9 @@ export class CabinetComponent implements OnInit {
     // this.tokens = this.amount.value;
     // console.log('this.tokens :>> ', this.tokens);
   }
+  expirateDerivative(ticket: Derivative) {
 
+  }
   createDerivative() {
     this.boardService.getBoardContract().subscribe((deployed) => {
 console.log('this.expirationBlock :>> ', this.expirationBlock);

@@ -1,6 +1,53 @@
 <mat-card-title>Owner's cabinet</mat-card-title>
 <br />
-<app-board></app-board>
+<mat-card-title>Prediction Features</mat-card-title>
+<br />
+
+<div class="example-container mat-elevation-z8">
+
+  <br />
+
+  <mat-table *ngIf="showTable" #table [class.isMobile]="isMobile" [dataSource]="hashActiveDerivatives" class="mat-elevation-z8">
+    <ng-container matColumnDef="nameDerivative">
+      <mat-header-cell *matHeaderCellDef> Hash </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <span class="mobile-label">Hash:</span>
+        {{ ticket.hash }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="lastBlock">
+      <mat-header-cell *matHeaderCellDef> Last Block </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <span class="mobile-label">Last Block</span>
+        {{ lastBlock }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="blockExpiration">
+      <mat-header-cell *matHeaderCellDef> Block expiration </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <span class="mobile-label">Block expiration</span>
+        {{ ticket.startBlockExpiration }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="endExpiration">
+      <mat-header-cell *matHeaderCellDef> End expiration </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <span class="mobile-label">End expiration</span>
+        {{ ticket.durationExpiration }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="startExpiration">
+      <mat-header-cell *matHeaderCellDef> Start expiration </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <button mat-raised-button color="primary" (click)="expirateDerivative(ticket)" [disabled]="(ticket.startBlockExpiration < lastBlock) ? null: true">Expirate</button>
+      </mat-cell>
+
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>
 <div class="content">
   <app-balance></app-balance>
   <mat-card-title>{{activeAccount}}</mat-card-title>

@@ -25,7 +25,7 @@ export class BoardComponent implements OnInit {
     'nameDerivative',
     'lastBlock',
     'blockExpiration',
-    'durationExpiration',
+    'endExpiration',
     'buy',
     'boardInvestors'
   ];

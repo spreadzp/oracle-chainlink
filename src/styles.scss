@@ -2,4 +2,18 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
 
+.mobile-label {
+  display: none;
+}
+.mat-row {
+  padding: 10px;
+}
+
+.mat-cell {
+  padding: 10px;
+}

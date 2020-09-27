@@ -28,7 +28,7 @@ activeDerivative: Derivative = null;
   }
 
   onAmountChange(nameVariable: string, data: FormControl) {
-    this[nameVariable] = data.value;
+    this[nameVariable] = +data.value;
     console.log(`${nameVariable}: `, this[nameVariable], 'value', data);
     // this.tokens = this.amount.value;
     // console.log('this.tokens :>> ', this.tokens);
