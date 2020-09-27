@@ -4,10 +4,15 @@
 <br />
 
 <div class="example-container mat-elevation-z8">
-
   <br />
 
-  <mat-table *ngIf="showTable" #table [class.isMobile]="isMobile" [dataSource]="hashActiveDerivatives" class="mat-elevation-z8">
+  <mat-table
+    *ngIf="showTable"
+    #table
+    [class.isMobile]="isMobile"
+    [dataSource]="hashActiveDerivatives"
+    class="mat-elevation-z8"
+  >
     <ng-container matColumnDef="nameDerivative">
       <mat-header-cell *matHeaderCellDef> Hash </mat-header-cell>
       <mat-cell *matCellDef="let ticket">
@@ -39,31 +44,45 @@
     <ng-container matColumnDef="startExpiration">
       <mat-header-cell *matHeaderCellDef> Start expiration </mat-header-cell>
       <mat-cell *matCellDef="let ticket">
-        <button mat-raised-button color="primary" (click)="expirateDerivative(ticket)" [disabled]="(ticket.startBlockExpiration < lastBlock) ? null: true">Expirate</button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="expirateDerivative(ticket)"
+          [disabled]="ticket.startBlockExpiration < lastBlock ? null : true"
+        >
+          Expirate
+        </button>
       </mat-cell>
-
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
 </div>
+<br/>
 <div class="content">
-  <app-balance></app-balance>
-  <mat-card-title>{{activeAccount}}</mat-card-title>
-  <!-- <form class="exch"> -->
-    <div class="amount">
-      <mat-form-field class="example-full-width">
-        <mat-label>Number blocks after last block</mat-label>
-        <input matInput placeholder="Enter number of blocks after last block" name="expirationBlock" [formControl]="expirationBlock"
-          (change)="onAmountChange('expirationBlock', expirationBlock)" />
-      </mat-form-field>
 
-    </div>
-    <div class="buttons">
-      <button mat-raised-button class="btn-buy" (click)="createDerivative()">
-        Create derivative
-      </button>
-    </div>
+  <app-balance></app-balance>
+
+
+
+  <!-- <form class="exch"> -->
+  <div class="amount">
+    <mat-form-field class="example-full-width">
+      <mat-label>Number blocks after last block</mat-label>
+      <input
+        matInput
+        placeholder="Enter number of blocks after last block"
+        name="expirationBlock"
+        [formControl]="expirationBlock"
+        (change)="onAmountChange('expirationBlock', expirationBlock)"
+      />
+    </mat-form-field>
+  </div>
+  <div class="buttons">
+    <button mat-raised-button class="btn-buy" (click)="createDerivative()">
+      Create derivative
+    </button>
+  </div>
   <!-- </form> -->
 </div>

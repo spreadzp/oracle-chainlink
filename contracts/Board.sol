@@ -42,7 +42,7 @@ contract PriceConsumerV3 {
      * Address: 0x9326BFA02ADD2366b30bacB125260Af641031331
      */
     constructor() public {
-        priceFeed = AggregatorV3Interface(0x777A68032a88E5A84678A77Af2CD65A7b3c0775a);
+        priceFeed = AggregatorV3Interface(0x9326BFA02ADD2366b30bacB125260Af641031331);
     }
 
     /**
@@ -165,6 +165,7 @@ contract Board is PriceConsumerV3, Derivative {
 
   event AddedExpirationPrice(int256 price, bytes32 hashDerivative);
   event CreatedDerivative(bytes32 hashDerivative);
+  event StartExpirationDerivative(bytes32 hashDerivative);
   event BoughtPrice(bytes32 hashDerivative, uint256 amount, uint256 predictionPrice, address investor);
   uint256 numberActiveFutures = 0;
   bytes32[] public hashActiveFutures = new bytes32[](50);
@@ -181,6 +182,7 @@ contract Board is PriceConsumerV3, Derivative {
     closeExpiration(hashDerivative);
     activeFutures[hashDerivative] = false;
     hashActiveFutures = updateActiveFutures(hashDerivative);
+    emit StartExpirationDerivative(hashDerivative);
   }
 
   function getActiveDerivatives() public view returns(bytes32[] memory, uint256[] memory, uint256[] memory ) {
@@ -211,7 +213,8 @@ contract Board is PriceConsumerV3, Derivative {
   }
 
   function addExpirationPrice(bytes32 hashDerivative) public onlyOwner {
-      if(activeFutures[hashDerivative] == true && poolDerivatives[hashDerivative].isExpirate == true) {
+      if(activeFutures[hashDerivative] == true && poolDerivatives[hashDerivative].isExpirate == true &&
+      block.number > poolDerivatives[hashDerivative].startExpirationBlock && poolDerivatives[hashDerivative].endExpirationBlock  > block.number) {
           int price = PriceConsumerV3.getLatestPrice();
            setExpirationPrice(price, hashDerivative);
            emit AddedExpirationPrice(price, hashDerivative);
@@ -227,11 +230,11 @@ contract Board is PriceConsumerV3, Derivative {
       emit BoughtPrice(hashDerivative, predictionPrice, amount, address(msg.sender));
   }
 
-  function getInvestors(bytes32 hashDerivative) public view returns(address[] memory  , uint256[] memory  , uint256[] memory  ) {
+  function getInvestors(bytes32 hashDerivative) public view returns(address[] memory, uint256[] memory, uint256[] memory ) {
       uint256 length = investmentsToDerivative[hashDerivative].length;
-      address[] memory  investors = new address[](length);
-      uint256[] memory  investorsPrices = new uint256[](length);
-      uint256[] memory  investorsAmounts = new uint256[](length);
+      address[] memory investors = new address[](length);
+      uint256[] memory investorsPrices = new uint256[](length);
+      uint256[] memory investorsAmounts = new uint256[](length);
       Investment[] memory investments = investmentsToDerivative[hashDerivative];
       for(uint256 k = 0; k < length; k++) {
          investors[k] = investments[k].investorAddress;

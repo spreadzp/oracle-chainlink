@@ -29,8 +29,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { BalanceComponent } from './components/balance/balance.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { PriceService } from './services/price.service';
-import { PriceComponent } from './components/price/price.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BoardComponent } from './components/board/board.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -61,7 +59,6 @@ import { BoardService } from './services/board.service';
     HeaderComponent,
     BalanceComponent,
     NotFoundComponent,
-    PriceComponent,
     BoardComponent,
     InfoComponent,
     RulesComponent,
@@ -95,7 +92,7 @@ import { BoardService } from './services/board.service';
     HighchartsChartModule,
     NouisliderModule
   ],
-  providers: [ PriceService, ShowPageService, StakeService, RangeService, Web3Service, BoardService],
+  providers: [ ShowPageService, StakeService, RangeService, Web3Service, BoardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

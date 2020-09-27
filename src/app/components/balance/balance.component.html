@@ -1,8 +1,9 @@
-<!-- <p>{{result}}</p> -->
-<p>Last number block {{lastBlock}}</p>
-<!-- <p># hash derivative {{hashDerivative}}</p>
-<p>blockNumber {{priceInfo?.blockNumber}}</p>
-<p>price {{priceInfo?.price}}</p>
-<p>inProgress: {{inProgress}}</p>
-<button (click)="addPrice()">add new price</button> -->
-<!-- <app-price></app-price> -->
+
+<mat-card-title>Price ETH/USD from ChainLink <span><img src="./../../../assets/img/chainlink.png"/>
+</span> {{ lastPrice }} USD
+</mat-card-title>
+<br>
+<mat-card-title>Last number block:  {{lastBlock}}</mat-card-title>
+<br>
+<mat-card-title> Your address: {{ activeAccount }}</mat-card-title>
+<br>

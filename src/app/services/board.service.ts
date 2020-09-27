@@ -22,6 +22,9 @@ export class BoardService {
   choisedDerivative = this.choiceDerivativeSource.asObservable();
   private hashesActiveFuturesSource = new BehaviorSubject<Derivative[]>([]);
   poolActiveDerivatives = this.hashesActiveFuturesSource.asObservable();
+  private oraclePriceSource = new BehaviorSubject(0);
+  oraclePrice = this.oraclePriceSource.asObservable();
+
   constructor(
     private web3Service: Web3Service,
     // private lotoService: LotoService
@@ -69,6 +72,9 @@ export class BoardService {
     this.hashSource.next(hash);
   }
 
+  setOraclePrice(price: number) {
+    this.oraclePriceSource.next(price);
+  }
   setActiveDerivative(derivative: Derivative) {
     this.choiceDerivativeSource.next(derivative);
   }
@@ -95,7 +101,7 @@ export class BoardService {
       .artifactsToContract(boardArtifacts)
       .then(async (BoardAbstraction) => {
         // return BoardAbstraction.deployed();
-        return BoardAbstraction.at('0x4794CBC3433Ba8Ee4A013cbCAc11d38cd3ddA631');
+        return BoardAbstraction.at('0x7d97630381d40A31354646134f6938F0836FebC6');
       });
   }
 }

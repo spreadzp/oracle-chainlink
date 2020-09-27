@@ -21,14 +21,30 @@ export class BalanceComponent implements OnInit {
   price = 0;
   result = null;
   lastBlock = null;
+  activeAccount = null;
+  lastPrice = null;
   priceInfo = {} as PriceInfo;
   hashDerivative = '';
+  expirationBlock = null;
   constructor(private web3Service: Web3Service, private boardService: BoardService   ) { }
 
   ngOnInit(): void {
     this.web3Service.blockObservable.subscribe(block => this.lastBlock = block);
     this.boardService.hashDerivative.subscribe(hash => this.hashDerivative = hash);
-
+    this.boardService.getBoardContract().subscribe((deployed) => {
+      console.log('this.expirationBlock :>> ', this.expirationBlock);
+      const t = deployed.then((contract) => {
+        contract.getLatestPrice().then((latestPrice) => {
+          this.boardService.setOraclePrice(+latestPrice / 100000000);
+        });
+      });
+    });
+    this.boardService.oraclePrice.subscribe((price) => {
+      this.lastPrice = price;
+    });
+    this.web3Service.activeAccount.subscribe(
+      (account) => (this.activeAccount = account)
+    );
     // this.iconProviderService.getWallet()
     //   .then(res => this.result = res);
     // this.iconProviderService.getLastBlock()
